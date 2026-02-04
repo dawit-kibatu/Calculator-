@@ -65,13 +65,19 @@ function equals(){
     operators=[]
     let result=0
     console.log(parseFloat(screen.textContent))
-    for(let char of screen.textContent){
-        if('+-×÷'.includes(char)){
-            operators.push(char)
+   for (let char of screen.textContent) {
+        if ('+-×÷'.includes(char)) {
+            if (currentNumber !== '') {
+                numbers.push(parseFloat(currentNumber));
+                currentNumber = '';
+            }
+            operators.push(char);
+        } else {
+            currentNumber += char;
         }
-        else{
-            numbers.push(parseFloat(char))
-        }
+    }
+    if (currentNumber !== '') {
+        numbers.push(parseFloat(currentNumber));
     }
     while(numbers.length>1){
         while(true){
