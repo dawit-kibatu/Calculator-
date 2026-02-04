@@ -60,12 +60,13 @@ equalsButtons.addEventListener("click",equals);
 let numbers=[]
 let operators=[]
 let currentNumber=''
-function equals(){
-    numbers=[]
-    operators=[]
-    let result=0
-    console.log(parseFloat(screen.textContent))
-   for (let char of screen.textContent) {
+function equals() {
+    numbers = [];
+    operators = [];
+    let result = 0;
+    currentNumber = '';
+
+    for (let char of screen.textContent) {
         if ('+-×÷'.includes(char)) {
             if (currentNumber !== '') {
                 numbers.push(parseFloat(currentNumber));
@@ -79,74 +80,49 @@ function equals(){
     if (currentNumber !== '') {
         numbers.push(parseFloat(currentNumber));
     }
-    while(numbers.length>1){
-        while(true){
-            if(operators.includes("×")==false){
-                break;
-            }
-            console.log("m")
-            if(operators.includes("×")){
-            let position=operators.indexOf("×")
-            result=multiplie(numbers[position],numbers[position+1])
-            operators.splice(position,1)
-            numbers.splice(position,1)
-            numbers.splice(position,1)
-            numbers.splice(position, 0, result);
-            console.log(numbers)
-            console.log(operators)
+    
+    console.log("Numbers:", numbers);
+    console.log("Operators:", operators);
+
+    let i = 0;
+    while (i < operators.length) {
+        if (operators[i] === '×' || operators[i] === '÷') {
+            let num1 = numbers[i];
+            let num2 = numbers[i + 1];
+            let operationResult;
             
-    }
-        }
-       while(true){
-           if(operators.includes("÷")==false){
-                break;
+            if (operators[i] === '×') {
+                operationResult = multiplie(num1, num2);
+            } else {
+                operationResult = divide(num1, num2);
             }
-            console.log("d")
-            if(operators.includes("÷")){
-            let position=operators.indexOf("÷")
-            result=divide(numbers[position],numbers[position+1])
-            operators.splice(position,1)
-            numbers.splice(position,1)
-            numbers.splice(position,1)
-            numbers.splice(position, 0, result);
-            console.log(numbers)
-            console.log(operators)}
             
-    }
-        while(true){
-            if(operators.includes("+")==false){
-                break;
-            }
-           console.log("a")
-            if(operators.includes("+")){
-            let position=operators.indexOf("+")
-            result=add(numbers[position],numbers[position+1])
-            operators.splice(position,1)
-            numbers.splice(position,1)
-            numbers.splice(position,1)
-            numbers.splice(position, 0, result);
-            console.log(numbers)
-            console.log(operators)
-            
-    }
-        }
-        while(true){
-            if(operators.includes("-")==false){
-                break;
-            }
-          console.log("s")
-            if(operators.includes("-")){
-            let position=operators.indexOf("-")
-            result=subtract(numbers[position],numbers[position+1])
-            operators.splice(position,1)
-            numbers.splice(position,1)
-            numbers.splice(position,1)
-            numbers.splice(position, 0, result);
-            console.log(numbers)
-            console.log(operators)
-            
-    }
+            numbers.splice(i, 2, operationResult);
+            operators.splice(i, 1);
+        } else {
+            i++;
         }
     }
-    screen.textContent=result
+    
+    console.log("After ×÷:", numbers);
+    console.log("After ×÷:", operators);
+
+    while (operators.length > 0) {
+        let num1 = numbers[0];
+        let num2 = numbers[1];
+        let operationResult;
+        
+        if (operators[0] === '+') {
+            operationResult = add(num1, num2);
+        } else {
+            operationResult = subtract(num1, num2);
+        }
+        
+        numbers.splice(0, 2, operationResult);
+        operators.splice(0, 1);
+    }
+    
+    result = numbers[0];
+    screen.textContent = result;
+    currentNumber = ''; 
 }
