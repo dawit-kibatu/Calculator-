@@ -60,10 +60,11 @@ equalsButtons.addEventListener("click",equals);
 let numbers=[]
 let operators=[]
 let currentNumber=''
+let result = 0;
+let answer=result
 function equals() {
     numbers = [];
     operators = [];
-    let result = 0;
     currentNumber = '';
 
     for (let char of screen.textContent) {
@@ -129,6 +130,7 @@ function equals() {
     }
     else{
         screen.textContent=result
+        answer=result;
     }
     currentNumber = ''; 
 }
@@ -136,4 +138,9 @@ const dot=document.querySelector("#dot")
 dot.addEventListener(("click"), decimalPoint)
 function decimalPoint(event){
     screen.textContent+="."
+}
+const answerButton=document.querySelector("#answer")
+answerButton.addEventListener(("click"),printAnswer)
+function printAnswer(){
+    screen.textContent=answer
 }
