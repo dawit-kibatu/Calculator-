@@ -53,6 +53,7 @@ operatorButtons.forEach(button=>{
     button.addEventListener("click",print)
 })
 function print(event){
+    dot.disabled=false
     screen.textContent+=event.target.id
 }
 const equalsButtons=document.querySelector("#equals");
@@ -132,12 +133,16 @@ function equals() {
         screen.textContent=result
         answer=result;
     }
+    if(String(result).includes(".")){
+        dot.disabled=true
+    }
     currentNumber = ''; 
 }
 const dot=document.querySelector("#dot")
 dot.addEventListener(("click"), decimalPoint)
-function decimalPoint(event){
+function decimalPoint(){
     screen.textContent+="."
+    dot.disabled=true
 }
 const answerButton=document.querySelector("#answer")
 answerButton.addEventListener(("click"),printAnswer)
