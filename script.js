@@ -68,6 +68,7 @@ function equals() {
     operators = [];
     result=0
     currentNumber = '';
+    dot.disabled=false
     for (let char of screen.textContent) {
         if ('+-×÷'.includes(char)) {
             if (currentNumber !== '') {
