@@ -123,6 +123,17 @@ function equals() {
     }
     
     result = numbers[0];
-    screen.textContent = result;
+
+    if(Number.isNaN(result)){
+        screen.textContent="Syntax Error"
+    }
+    else{
+        screen.textContent=result
+    }
     currentNumber = ''; 
+}
+const dot=document.querySelector("#dot")
+dot.addEventListener(("click"), decimalPoint)
+function decimalPoint(event){
+    screen.textContent+="."
 }
