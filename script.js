@@ -61,12 +61,12 @@ let numbers=[]
 let operators=[]
 let currentNumber=''
 let result = 0;
-let answer=result
+let answer=0
 function equals() {
     numbers = [];
     operators = [];
+    result=0
     currentNumber = '';
-
     for (let char of screen.textContent) {
         if ('+-×÷'.includes(char)) {
             if (currentNumber !== '') {
@@ -124,7 +124,7 @@ function equals() {
     }
     
     result = numbers[0];
-
+    console.log("result:"+result)
     if(Number.isNaN(result)){
         screen.textContent="Syntax Error"
     }
@@ -144,3 +144,19 @@ answerButton.addEventListener(("click"),printAnswer)
 function printAnswer(){
     screen.textContent=answer
 }
+document.addEventListener("keydown",function(event){
+   let allowedKeys = ["1","2","3","4","5","6","7","8","9","0","*","-","/","+","."]
+   console.log(event.key)
+   if (event.key == "*") {
+        screen.textContent += "×"
+    } 
+   else if (event.key == "/") {
+        screen.textContent += "÷"
+    } 
+   else if(allowedKeys.includes(event.key)){
+       screen.textContent+=event.key
+   }
+   else if(event.key=="Backspace"){
+    deleteNumber()
+   }
+})
